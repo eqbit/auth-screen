@@ -1,0 +1,99 @@
+@import "./variables";
+
+html {
+  font-size: 15px
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: $background;
+  color: $text;
+}
+
+img {
+  max-width: 100%;
+}
+
+*, *:before,
+*:after {
+  box-sizing: border-box;
+}
+
+a {
+  color: $primary;
+  text-decoration: none !important;
+  transition: .3s;
+  box-shadow: 0 2px 0 transparent;
+
+  &:hover {
+    box-shadow: 0 2px 0 currentColor;
+  }
+}
+
+.wrapper {
+  min-height: 100%;
+  padding-top: 60px;
+}
+
+.page-title {
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 110%;
+  letter-spacing: -0.015em;
+  margin: 0;
+}
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+
+  & + & {
+    margin-top: 1.5rem;
+  }
+
+  &__label {
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 120%;
+  }
+
+  &__container {
+    position: relative;
+  }
+
+  &__icon {
+    position: absolute;
+    right: 15px;
+    top: 13px;
+
+    svg + svg {
+      margin-left: 8px;
+    }
+  }
+
+  &__input {
+    background: #F5F6F7;
+    border: 1px solid #EBEEEE;
+    border-radius: 4px;
+    padding: 12px 40px 12px 15px;
+    font-size: 16px;
+    line-height: 150%;
+    color: $placeholder;
+    width: 100%;
+    transition: .15s;
+
+    &:hover {
+      border-color: #84D0E1;
+    }
+
+    &:active, &:focus {
+      background-color: #FFFFFF;
+      border-color: #09A2C3;
+    }
+  }
+}

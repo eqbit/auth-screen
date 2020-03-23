@@ -1,0 +1,25 @@
+.auth-screen {
+  &__text {
+    margin-top: -20px;
+  }
+
+  &__description {
+    font-size: 20px;
+    line-height: 150%;
+    margin-top: 1rem;
+  }
+
+  &__log-in {
+    font-size: 20px;
+    line-height: 150%;
+    color: #809398;
+    margin-top: 2rem;
+  }
+
+  &-form {
+    background: #FFFFFF;
+    box-shadow: 0 4px 10px rgba(2, 40, 49, 0.08), 0 0 2px rgba(2, 40, 49, 0.1);
+    border-radius: 6px;
+    padding: 20px;
+  }
+}
