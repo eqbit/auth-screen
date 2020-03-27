@@ -1,17 +1,11 @@
 import React from "react";
 import { reduxForm, Field } from "redux-form";
-import { useSelector } from "react-redux";
 import { ReactComponent as User } from '../../icons/user.svg';
 import { ReactComponent as Email } from '../../icons/email.svg';
 import { ReactComponent as Arrow } from '../../icons/arrow.svg';
-import { ReactComponent as Eye } from '../../icons/eye.svg';
-import { ReactComponent as Check } from '../../icons/check.svg';
+import PasswordInput from "../password-input";
 
 const AuthForm: React.FC<any> = ({ pristine, reset, submitting }) => {
-  const { auth } = useSelector((store: any) => store.form);
-
-  console.log(auth);
-
   return (
     <div className="row auth-screen">
       <div className="col-lg-1"/>
@@ -24,7 +18,7 @@ const AuthForm: React.FC<any> = ({ pristine, reset, submitting }) => {
 
           <p className="auth-screen__description">Sell goods/services and get paid in crypto or
             let your followers donate you in crypto. <br/>
-            Do it all with Yomer.</p>
+            Do it all with Ebay.</p>
 
           <div className="auth-screen__log-in">
             Already have an account? <a href="/login">Log in</a>
@@ -82,18 +76,11 @@ const AuthForm: React.FC<any> = ({ pristine, reset, submitting }) => {
           </div>
 
           <div className="field-group">
-            <label htmlFor="password" className="field-group__label">Password</label>
-            <div className="field-group__container">
-              <Field
-                name="password"
-                type="password"
-                component="input"
-                placeholder="Create password"
-                id="password"
-                className="field-group__input"
-              />
-              <i className="field-group__icon"><Eye/><Check/></i>
-            </div>
+            <PasswordInput/>
+          </div>
+
+          <div className="field-group">
+            <button className="btn btn-lg btn-primary btn-fluid" disabled>Create Account</button>
           </div>
         </form>
       </div>
