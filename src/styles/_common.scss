@@ -81,23 +81,33 @@ input {
   }
 
   &__input {
-    background: #F5F6F7;
-    border: 1px solid #EBEEEE;
+    background: $input-background;
+    border: 1px solid $input-border;
     border-radius: 4px;
     padding: 12px 40px 12px 15px;
     font-size: 16px;
     line-height: 150%;
-    color: $placeholder;
+    color: $gray;
     width: 100%;
     transition: .15s;
 
     &:hover {
-      border-color: #84D0E1;
+      border-color: $input-border-hover;
     }
 
     &:active, &:focus {
       background-color: #FFFFFF;
-      border-color: #09A2C3;
+      border-color: $input-border-active;
+    }
+
+    &--error {
+      border-color: $error;
+      background-color: #FFFFFF;
+    }
+
+    &--valid {
+      border-color: $success;
+      background-color: #FFFFFF;
     }
   }
   &__eye-icon {
@@ -110,7 +120,7 @@ input {
       position: absolute;
       width: 21px;
       height: 2px;
-      background: #809398;
+      background: $gray;
       transform: rotate(-36deg);
       top: 11px;
       left: 2px;
@@ -130,23 +140,48 @@ input {
       font-size: 12px;
       line-height: 120%;
       letter-spacing: -0.005em;
-      color: #809398;
+      color: $gray;
       margin: 5px 8px;
       transition: .3s;
+      padding-left: 15px;
+      position: relative;
 
       &:before {
         content: "";
-        display: inline-block;
+        display: block;
         background: currentColor;
         width: 6px;
         height: 6px;
         border-radius: 50%;
-        vertical-align: middle;
-        margin: 0 10px 0 5px;
+        position: absolute;
+        left: 5px;
+        top: 4px;
       }
 
       &--valid {
-        color: #0AD65C;
+        color: $success;
+
+        &:before {
+          color: transparent;
+          content: url('/images/check-success.svg');
+          width: auto;
+          height: auto;
+          left: 0;
+          top: -1px;
+        }
+      }
+
+      &--error {
+        color: $error;
+
+        &:before {
+          color: transparent;
+          content: url('/images/check-failed.svg');
+          width: auto;
+          height: auto;
+          left: 0;
+          top: -1px;
+        }
       }
     }
   }
