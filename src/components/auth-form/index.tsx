@@ -8,9 +8,9 @@ import PasswordInput from "../password-input";
 const AuthForm: React.FC<any> = ({ pristine, reset, submitting }) => {
   return (
     <div className="row auth-screen">
-      <div className="col-lg-1"/>
+      <div className="col-lg-1 d-none d-lg-block"/>
 
-      <div className="col-lg-5">
+      <div className="col-lg-5 col-md-6 d-none d-md-block">
         <img src="/images/signUp.png" srcSet="/images/signUp.png 1x, /images/signUp@2x.png 2x" alt=""/>
 
         <div className="auth-screen__text">
@@ -26,9 +26,9 @@ const AuthForm: React.FC<any> = ({ pristine, reset, submitting }) => {
         </div>
       </div>
 
-      <div className="col-lg-1"/>
+      <div className="col-lg-1 d-none d-lg-block"/>
 
-      <div className="col-lg-4">
+      <div className="col-lg-4 col-md-6">
         <form className="auth-screen-form">
           <div className="field-group">
             <label htmlFor="name" className="field-group__label">Name</label>
@@ -85,7 +85,7 @@ const AuthForm: React.FC<any> = ({ pristine, reset, submitting }) => {
         </form>
       </div>
 
-      <div className="col-lg-1"/>
+      <div className="col-lg-1 d-none d-lg-block"/>
     </div>
   )
 };
