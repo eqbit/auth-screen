@@ -1,7 +1,11 @@
 @import "./variables";
 
 html {
-  font-size: 15px
+  font-size: 12px;
+
+  @media (min-width: 960px) {
+    font-size: 15px;
+  }
 }
 
 html, body, #root {
@@ -46,7 +50,7 @@ input {
 
 .page-title {
   font-weight: 600;
-  font-size: 32px;
+  font-size: 2rem;
   line-height: 110%;
   letter-spacing: -0.015em;
   margin: 0;
@@ -122,8 +126,12 @@ input {
       height: 2px;
       background: $gray;
       transform: rotate(-36deg);
-      top: 11px;
+      top: 8px;
       left: 2px;
+
+      @media (min-width: 960px) {
+        top: 11px;
+      }
     }
   }
 

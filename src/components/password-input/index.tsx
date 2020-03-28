@@ -5,18 +5,22 @@ import { ReactComponent as Check } from "../../icons/check.svg";
 import { ReactComponent as Error } from "../../icons/validation-failed.svg";
 import { useSelector } from "react-redux";
 
-const PasswordInput = () => {
+interface Props {
+  formName: string;
+}
+
+const PasswordInput: React.FC<Props> = ({ formName }) => {
   const [ isPasswordType, setPasswordType ] = useState(true);
-  const [ passwordTouched, setPasswordTouched ] = useState(false);
-  const [isBluredOnce, setBluredOnce] = useState(false);
+  const [ isTouched, setIsTouched ] = useState(false);
+  const [ isBluredOnce, setBluredOnce ] = useState(false);
 
   const toggleType = () => {
     setPasswordType(!isPasswordType);
   };
 
-  const { auth } = useSelector((store: any) => store.form);
+  const form = useSelector((store: any) => store.form[formName]);
 
-  const password = auth && auth.values ? auth.values.password : '';
+  const password = form && form.values && form.values.password ? form.values.password : '';
 
   const checkForLetterCase = /[a-z]/.test(password);
   const checkForUpperCase = /[A-Z]/.test(password);
@@ -25,29 +29,29 @@ const PasswordInput = () => {
 
   const isValid = checkForLetterCase && checkForUpperCase && checkForNumber && checkForLength;
 
-  const isActive = auth && auth.active === 'password';
-  if (isActive && !passwordTouched) {
-    setPasswordTouched(true);
+  const isActive = form && form.active === 'password';
+  if (isActive && !isTouched) {
+    setIsTouched(true);
   }
 
-  if(passwordTouched && !isActive && !isBluredOnce) {
+  if (isTouched && !isActive && !isBluredOnce) {
     setBluredOnce(true);
   }
 
   const shouldShowValidity = isValid || (isBluredOnce && !isActive);
 
   const getInputClassName = () => {
-    if(isValid) {
+    if (isValid) {
       return 'field-group__input field-group__input--valid';
     }
 
     return (isBluredOnce && !isActive) ? 'field-group__input field-group__input--error' : 'field-group__input';
   };
 
-  const getValidatorClassName = ({regex, length}: {regex?: RegExp; length?: number}) => {
+  const getValidatorClassName = ({ regex, length }: { regex?: RegExp; length?: number }) => {
     const isLocalValid = (regex && regex.test(password)) || (length && password.length >= 8);
 
-    if(isActive || !passwordTouched) {
+    if (isActive || !isTouched) {
       return isLocalValid
         ? 'field-group-checks__item field-group-checks__item--valid'
         : 'field-group-checks__item';
@@ -79,24 +83,24 @@ const PasswordInput = () => {
           </span>
           {shouldShowValidity && (
             isValid ? <Check/> : <Error/>
-            )}
+          )}
         </i>
       </div>
 
       <ul className="field-group-checks">
-        <li className={getValidatorClassName({regex: /[a-z]/})}>
+        <li className={getValidatorClassName({ regex: /[a-z]/ })}>
           One lowercase character
         </li>
 
-        <li className={getValidatorClassName({regex: /[0-9]/})}>
+        <li className={getValidatorClassName({ regex: /[0-9]/ })}>
           One number
         </li>
 
-        <li className={getValidatorClassName({regex: /[A-Z]/})}>
+        <li className={getValidatorClassName({ regex: /[A-Z]/ })}>
           One uppercase character
         </li>
 
-        <li className={getValidatorClassName({length: 8})}>
+        <li className={getValidatorClassName({ length: 8 })}>
           At least 8 symbols
         </li>
       </ul>

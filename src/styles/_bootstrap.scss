@@ -9,3 +9,13 @@ $container-max-widths: (
 $blue: $primary;
 
 @import "node_modules/bootstrap/scss/bootstrap";
+
+.container {
+  padding-left: 15px;
+  padding-right: 15px;
+
+  @media (min-width: 960px) {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
