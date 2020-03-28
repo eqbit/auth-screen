@@ -13,6 +13,8 @@ interface Props {
   formName: string;
 }
 
+// todo implement error field
+
 const SimpleInput: React.FC<Props> = (
   {
     name,
