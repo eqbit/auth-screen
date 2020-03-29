@@ -2,10 +2,27 @@ import React from "react";
 import { reduxForm, Field } from "redux-form";
 import { ReactComponent as User } from '../../icons/user.svg';
 import { ReactComponent as Email } from '../../icons/email.svg';
-import { ReactComponent as Arrow } from '../../icons/arrow.svg';
 import PasswordInput from "../password-input";
 import SimpleInput from "../simple-input";
 import { validations } from "../../utils/validations";
+import SimpleSelect from "../simple-select";
+
+type SelectOption = {
+  label: string;
+  value: string;
+}
+
+const countries: SelectOption[] = [
+  {
+    label: 'China',
+    value: 'China'
+  },
+  {
+    label: 'Russia',
+    value: 'Russia'
+  },
+
+];
 
 const AuthForm: React.FC = () => {
   return (
@@ -65,13 +82,11 @@ const AuthForm: React.FC = () => {
             <div className="field-group__container">
               <Field
                 name="country"
-                type="text"
-                component="input"
-                placeholder="Сountry of your residence"
+                component={SimpleSelect}
                 id="country"
-                className="field-group__input"
+                options={countries}
+                formName="auth"
               />
-              <i className="field-group__icon"><Arrow/></i>
             </div>
           </div>
 

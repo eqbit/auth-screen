@@ -20,7 +20,7 @@ const PasswordInput: React.FC<Props> = ({ formName }) => {
 
   const form = useSelector((store: any) => store.form[formName]);
 
-  const password = form && form.values && form.values.password ? form.values.password : '';
+  const password = form?.values?.password ? form.values.password : '';
 
   const checkForLetterCase = /[a-z]/.test(password);
   const checkForUpperCase = /[A-Z]/.test(password);

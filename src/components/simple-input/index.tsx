@@ -13,7 +13,7 @@ interface Props {
   formName: string;
 }
 
-// TODO: implement error field
+// TODO: implement error text
 
 const SimpleInput: React.FC<Props> = (
   {
@@ -29,7 +29,7 @@ const SimpleInput: React.FC<Props> = (
   const [ isBluredOnce, setBluredOnce ] = useState(false);
 
   const form = useSelector((store: any) => store.form[formName]);
-  const value = form && form.values && form.values[name] ? form.values[name] : '';
+  const value = form?.values && form?.values[name] ? form.values[name] : '';
 
   const isValid: boolean = validationType ? validationType(value) : true;
 
