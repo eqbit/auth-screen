@@ -1,11 +1,28 @@
-import React, { CSSProperties } from "react";
-import Select from 'react-select'
+import React, { CSSProperties, useState } from "react";
+import Select from 'react-select';
+import { useSelector } from "react-redux";
 
-const SimpleSelect = ({ input, options }: any) => {
+const SimpleSelect = ({ input, options, formName, name }: any) => {
+  const [ isBluredOnce, setBluredOnce ] = useState(false);
+
+  const form = useSelector((store: any) => store.form[formName]);
+  const { value } = form?.values && form?.values[name] ? form.values[name] : '';
+
+  const isValid = !!value;
+
+  const shouldShowValidity = isValid || isBluredOnce;
+
+  console.log('isBluredOnce', isBluredOnce);
+  console.log('isValid', isValid);
+
   const customStyles = {
     control: (provided: CSSProperties, {isFocused, hasValue}: any): CSSProperties => {
       const backgroundColor = isFocused || hasValue ? '#FFFFFF' : '#F5F6F7';
       let borderColor = isFocused ? '#09A2C3': '#EBEEEE';
+
+      if(shouldShowValidity && !isValid) {
+        borderColor = '#F43015';
+      }
 
       if(hasValue) {
         borderColor = '#0AD65C';
@@ -17,7 +34,8 @@ const SimpleSelect = ({ input, options }: any) => {
         borderColor,
         padding: '12px 15px',
         minHeight: 'unset',
-        boxShadow: 'none'
+        boxShadow: 'none',
+        fontSize: '16px',
       }
     },
     valueContainer: (provided: CSSProperties): CSSProperties => ({
@@ -34,17 +52,11 @@ const SimpleSelect = ({ input, options }: any) => {
       padding: 0,
       margin: 0
     }),
-    indicatorsContainer: (provided: CSSProperties, state: any): CSSProperties => {
-      console.log(state);
-      //const transform = isFocused ? 'rotate(180deg)' : 'none';
-
-      return {
-        ...provided,
-        margin: '-8px -10px -8px 0',
-        //transform,
-        transition: '0.3s'
-      }
-    },
+    indicatorsContainer: (provided: CSSProperties): CSSProperties => ({
+      ...provided,
+      margin: '-8px -10px -8px 0',
+      transition: '0.3s'
+    }),
     indicatorSeparator: (provided: CSSProperties): CSSProperties => ({
       display: 'none'
     })
@@ -54,7 +66,10 @@ const SimpleSelect = ({ input, options }: any) => {
     <Select
       {...input}
       onChange={value => input.onChange(value)}
-      onBlur={() => input.onBlur(input.value)}
+      onBlur={() => {
+        setBluredOnce(true);
+        input.onBlur(input.value);
+      }}
       options={options}
       styles={customStyles}
     />
