@@ -12,12 +12,9 @@ const SimpleSelect = ({ input, options, formName, name }: any) => {
 
   const shouldShowValidity = isValid || isBluredOnce;
 
-  console.log('isBluredOnce', isBluredOnce);
-  console.log('isValid', isValid);
-
   const customStyles = {
-    control: (provided: CSSProperties, {isFocused, hasValue}: any): CSSProperties => {
-      const backgroundColor = isFocused || hasValue ? '#FFFFFF' : '#F5F6F7';
+    control: (provided: CSSProperties, {isFocused, hasValue}: any): any => {
+      const backgroundColor = isFocused || hasValue || (shouldShowValidity && !isValid) ? '#FFFFFF' : '#F5F6F7';
       let borderColor = isFocused ? '#09A2C3': '#EBEEEE';
 
       if(shouldShowValidity && !isValid) {
@@ -36,6 +33,10 @@ const SimpleSelect = ({ input, options, formName, name }: any) => {
         minHeight: 'unset',
         boxShadow: 'none',
         fontSize: '16px',
+
+        '&:hover': {
+          borderColor: '#84D0E1'
+        }
       }
     },
     valueContainer: (provided: CSSProperties): CSSProperties => ({
