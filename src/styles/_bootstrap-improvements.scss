@@ -1,0 +1,32 @@
+@import "variables";
+
+.container {
+  padding-left: 15px;
+  padding-right: 15px;
+
+  @media (min-width: 960px) {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+.btn {
+  border: none;
+
+  &-primary {
+    background: $btn-primary;
+
+    &:hover {
+      background: $btn-primary-hover;
+    }
+
+    &[disabled] {
+      background: $btn-disabled;
+      color: $light-gray;
+    }
+  }
+
+  &-fluid {
+    width: 100%;
+  }
+}

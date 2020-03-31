@@ -1,0 +1,155 @@
+@import "./variables";
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+
+  & + & {
+    margin-top: 1.5rem;
+  }
+
+  &__label {
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 120%;
+  }
+
+  &__container {
+    position: relative;
+  }
+
+  &__icon {
+    position: absolute;
+    right: 15px;
+    top: 13px;
+
+    svg + svg {
+      margin-left: 8px;
+    }
+  }
+
+  &__input {
+    background: $input-background;
+    border: 1px solid $input-border;
+    border-radius: 4px;
+    padding: 12px 40px 12px 15px;
+    font-size: 16px;
+    line-height: 150%;
+    color: $gray;
+    width: 100%;
+    transition: .15s;
+
+    &:hover {
+      border-color: $input-border-hover;
+    }
+
+    &:active, &:focus {
+      background-color: #FFFFFF;
+      border-color: $input-border-active;
+    }
+
+    &--error {
+      border-color: $error;
+      background-color: #FFFFFF;
+    }
+
+    &--valid {
+      border-color: $success;
+      background-color: #FFFFFF;
+    }
+  }
+  &__eye-icon {
+    position: relative;
+    cursor: pointer;
+
+    &--crossed:after {
+      content: "";
+      display: block;
+      position: absolute;
+      width: 21px;
+      height: 2px;
+      background: $gray;
+      transform: rotate(-36deg);
+      top: 8px;
+      left: 2px;
+
+      @media (min-width: 960px) {
+        top: 11px;
+      }
+    }
+  }
+
+  &-checks {
+    list-style: none;
+    margin: 5px -8px 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+
+    &__item {
+      width: calc(50% - 16px);
+      font-weight: 600;
+      font-size: 12px;
+      line-height: 120%;
+      letter-spacing: -0.005em;
+      color: $gray;
+      margin: 5px 8px;
+      transition: .3s;
+      padding-left: 15px;
+      position: relative;
+
+      &:before {
+        content: "";
+        display: block;
+        background: currentColor;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        position: absolute;
+        left: 5px;
+        top: 4px;
+      }
+
+      &--valid {
+        color: $success;
+
+        &:before {
+          color: transparent;
+          content: url('/images/check-success.svg');
+          width: auto;
+          height: auto;
+          left: 0;
+          top: -1px;
+        }
+      }
+
+      &--error {
+        color: $error;
+
+        &:before {
+          color: transparent;
+          content: url('/images/check-failed.svg');
+          width: auto;
+          height: auto;
+          left: 0;
+          top: -1px;
+        }
+      }
+    }
+  }
+
+  &__helper {
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 120%;
+    letter-spacing: -0.005em;
+    position: absolute;
+    left: 15px;
+    top: calc(100% + 2px);
+    color: $gray;
+
+    &--error {
+      color: $error;
+    }
+  }
+}

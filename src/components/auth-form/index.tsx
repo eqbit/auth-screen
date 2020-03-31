@@ -6,6 +6,7 @@ import PasswordInput from "../password-input";
 import SimpleInput from "../simple-input";
 import { validations } from "../../utils/validations";
 import SimpleSelect from "../simple-select";
+import { useSelector } from "react-redux";
 
 type SelectOption = {
   label: string;
@@ -25,6 +26,22 @@ const countries: SelectOption[] = [
 ];
 
 const AuthForm: React.FC = () => {
+  const form = useSelector((store: any) => store.form.auth);
+
+  const {
+    name = '',
+    email = '',
+    country: {
+      value: country = ''
+    } = {},
+    password = ''
+  } = form?.values || {};
+
+  const isValid = validations.name(name)
+    && validations.email(email)
+    && validations.country(country)
+    && validations.password(password);
+
   return (
     <div className="row auth-screen">
       <div className="col-lg-1 d-none d-lg-block"/>
@@ -63,6 +80,8 @@ const AuthForm: React.FC = () => {
               label="Name"
               icon={<User/>}
               validationType={validations.name}
+              helpText="Enter your name"
+              errorText="Incorrect name: only letters are allowed"
             />
           </div>
 
@@ -74,6 +93,8 @@ const AuthForm: React.FC = () => {
               label="Email"
               icon={<Email/>}
               validationType={validations.email}
+              helpText="Enter your email"
+              errorText="Please check if the field is filled out correctly"
             />
           </div>
 
@@ -86,6 +107,7 @@ const AuthForm: React.FC = () => {
                 id="country"
                 options={countries}
                 formName="auth"
+                errorText="Please choose your country"
               />
             </div>
           </div>
@@ -95,7 +117,7 @@ const AuthForm: React.FC = () => {
           </div>
 
           <div className="field-group">
-            <button className="btn btn-lg btn-primary btn-fluid" disabled>Create Account</button>
+            <button className="btn btn-lg btn-primary btn-fluid" disabled={!isValid}>Create Account</button>
           </div>
         </form>
       </div>

@@ -2,26 +2,33 @@ import React, { CSSProperties, useState } from "react";
 import Select from 'react-select';
 import { useSelector } from "react-redux";
 
-const SimpleSelect = ({ input, options, formName, name }: any) => {
+const SimpleSelect = (
+  {
+    input,
+    options,
+    formName,
+    errorText
+  }: any
+) => {
   const [ isBluredOnce, setBluredOnce ] = useState(false);
 
   const form = useSelector((store: any) => store.form[formName]);
-  const { value } = form?.values && form?.values[name] ? form.values[name] : '';
+  const { value } = form?.values && form?.values[input.name] ? form.values[input.name] : '';
 
   const isValid = !!value;
 
   const shouldShowValidity = isValid || isBluredOnce;
 
   const customStyles = {
-    control: (provided: CSSProperties, {isFocused, hasValue}: any): any => {
+    control: (provided: CSSProperties, { isFocused, hasValue }: any): any => {
       const backgroundColor = isFocused || hasValue || (shouldShowValidity && !isValid) ? '#FFFFFF' : '#F5F6F7';
-      let borderColor = isFocused ? '#09A2C3': '#EBEEEE';
+      let borderColor = isFocused ? '#09A2C3' : '#EBEEEE';
 
-      if(shouldShowValidity && !isValid) {
+      if (shouldShowValidity && !isValid) {
         borderColor = '#F43015';
       }
 
-      if(hasValue) {
+      if (hasValue) {
         borderColor = '#0AD65C';
       }
 
@@ -64,16 +71,24 @@ const SimpleSelect = ({ input, options, formName, name }: any) => {
   };
 
   return (
-    <Select
-      {...input}
-      onChange={value => input.onChange(value)}
-      onBlur={() => {
-        setBluredOnce(true);
-        input.onBlur(input.value);
-      }}
-      options={options}
-      styles={customStyles}
-    />
+    <>
+      <Select
+        {...input}
+        onChange={value => input.onChange(value)}
+        onBlur={() => {
+          setBluredOnce(true);
+          input.onBlur(input.value);
+        }}
+        options={options}
+        styles={customStyles}
+      />
+
+      {shouldShowValidity && !isValid && (
+        <div className="field-group__helper field-group__helper--error">
+          {errorText}
+        </div>
+      )}
+    </>
   );
 };
 

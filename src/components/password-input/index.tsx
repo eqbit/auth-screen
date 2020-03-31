@@ -4,6 +4,7 @@ import { ReactComponent as Eye } from "../../icons/eye.svg";
 import { ReactComponent as Check } from "../../icons/check.svg";
 import { ReactComponent as Error } from "../../icons/validation-failed.svg";
 import { useSelector } from "react-redux";
+import { validations } from '../../utils/validations'
 
 interface Props {
   formName: string;
@@ -22,12 +23,7 @@ const PasswordInput: React.FC<Props> = ({ formName }) => {
 
   const password = form?.values?.password ? form.values.password : '';
 
-  const checkForLetterCase = /[a-z]/.test(password);
-  const checkForUpperCase = /[A-Z]/.test(password);
-  const checkForNumber = /[0-9]/.test(password);
-  const checkForLength = password.length > 7;
-
-  const isValid = checkForLetterCase && checkForUpperCase && checkForNumber && checkForLength;
+  const isValid = validations.password(password);
 
   const isActive = form && form.active === 'password';
   if (isActive && !isTouched) {
@@ -48,16 +44,14 @@ const PasswordInput: React.FC<Props> = ({ formName }) => {
     return (isBluredOnce && !isActive) ? 'field-group__input field-group__input--error' : 'field-group__input';
   };
 
-  const getValidatorClassName = ({ regex, length }: { regex?: RegExp; length?: number }) => {
-    const isLocalValid = (regex && regex.test(password)) || (length && password.length >= 8);
-
+  const getValidatorClassName = (isLocallyValid: boolean): string => {
     if (isActive || !isTouched) {
-      return isLocalValid
+      return isLocallyValid
         ? 'field-group-checks__item field-group-checks__item--valid'
         : 'field-group-checks__item';
     }
 
-    return isLocalValid
+    return isLocallyValid
       ? 'field-group-checks__item field-group-checks__item--valid'
       : 'field-group-checks__item field-group-checks__item--error';
   };
@@ -88,19 +82,19 @@ const PasswordInput: React.FC<Props> = ({ formName }) => {
       </div>
 
       <ul className="field-group-checks">
-        <li className={getValidatorClassName({ regex: /[a-z]/ })}>
+        <li className={getValidatorClassName(validations.checkForLowerCase(password))}>
           One lowercase character
         </li>
 
-        <li className={getValidatorClassName({ regex: /[0-9]/ })}>
+        <li className={getValidatorClassName(validations.checkForNumber(password))}>
           One number
         </li>
 
-        <li className={getValidatorClassName({ regex: /[A-Z]/ })}>
+        <li className={getValidatorClassName(validations.checkForUpperCase(password))}>
           One uppercase character
         </li>
 
-        <li className={getValidatorClassName({ length: 8 })}>
+        <li className={getValidatorClassName(validations.checkForLength(password))}>
           At least 8 symbols
         </li>
       </ul>

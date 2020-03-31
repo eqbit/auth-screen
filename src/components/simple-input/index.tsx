@@ -11,9 +11,9 @@ interface Props {
   icon: JSX.Element;
   validationType?: (value: string) => boolean;
   formName: string;
+  helpText: string;
+  errorText: string;
 }
-
-// TODO: implement error text
 
 const SimpleInput: React.FC<Props> = (
   {
@@ -22,7 +22,9 @@ const SimpleInput: React.FC<Props> = (
     label,
     icon,
     validationType,
-    formName
+    formName,
+    helpText,
+    errorText
   }
 ) => {
   const [ isTouched, setIsTouched ] = useState(false);
@@ -69,6 +71,17 @@ const SimpleInput: React.FC<Props> = (
             isValid ? <Check/> : <Error/>
           ) : icon}
         </i>
+        {isActive && !isValid && (
+          <div className="field-group__helper">
+            {helpText}
+          </div>
+        )}
+
+        {shouldShowValidity && !isValid && (
+          <div className="field-group__helper field-group__helper--error">
+            {errorText}
+          </div>
+        )}
       </div>
     </>
   )
