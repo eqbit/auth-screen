@@ -60,11 +60,7 @@ const AuthForm: React.FC = () => {
           <p className="auth-screen__description">
             Sell goods/services and get paid in crypto or
             let your followers donate you in crypto. <br/>
-            Do it all with AntonishSalesGroup.</p>
-
-          <div className="auth-screen__log-in">
-            Already have an account? <a href="/login">Log in</a>
-          </div>
+            Do it all with Eqbit SalesGroup.</p>
         </div>
       </div>
 
